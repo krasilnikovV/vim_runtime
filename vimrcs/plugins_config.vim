@@ -14,24 +14,6 @@ call pathogen#infect(s:vim_runtime.'/sources_non_forked/{}')
 call pathogen#infect(s:vim_runtime.'/my_plugins/{}')
 call pathogen#helptags()
 
-
-""""""""""""""""""""""""""""""
-" => bufExplorer plugin
-""""""""""""""""""""""""""""""
-let g:bufExplorerDefaultHelp=0
-let g:bufExplorerShowRelativePath=1
-let g:bufExplorerFindActive=1
-let g:bufExplorerSortBy='name'
-map <leader>o :BufExplorer<cr>
-
-
-""""""""""""""""""""""""""""""
-" => MRU plugin
-""""""""""""""""""""""""""""""
-let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
-
-
 """"""""""""""""""""""""""""""
 " => YankStack
 """"""""""""""""""""""""""""""
@@ -39,7 +21,6 @@ let g:yankstack_yank_keys = ['y', 'd']
 
 nmap <C-p> <Plug>yankstack_substitute_older_paste
 nmap <C-n> <Plug>yankstack_substitute_newer_paste
-
 
 """"""""""""""""""""""""""""""
 " => CTRL-P
@@ -55,21 +36,6 @@ map <leader>b :CtrlPBuffer<cr>
 
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
-
-
-""""""""""""""""""""""""""""""
-" => ZenCoding
-""""""""""""""""""""""""""""""
-" Enable all functions in all modes
-let g:user_zen_mode='a'
-
-
-""""""""""""""""""""""""""""""
-" => snipMate (beside <TAB> support <CTRL-j>)
-""""""""""""""""""""""""""""""
-ino <C-j> <C-r>=snipMate#TriggerSnippet()<cr>
-snor <C-j> <esc>i<right><C-r>=snipMate#TriggerSnippet()<cr>
-let g:snipMate = { 'snippet_version' : 1 }
 
 
 """"""""""""""""""""""""""""""
@@ -140,34 +106,6 @@ let g:lightline = {
       \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimroom
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ale (syntax checker and linter)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'python': ['flake8'],
-\   'go': ['go', 'golint', 'errcheck']
-\}
-
-nmap <silent> <leader>a <Plug>(ale_next_wrap)
-
-" Disabling highlighting
-let g:ale_set_highlights = 0
-
-" Only run linting when saving the file
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Git gutter (Git diff)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:gitgutter_enabled=0
@@ -179,10 +117,3 @@ nnoremap <silent> <leader>d :GitGutterToggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fugitive
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Copy the link to the line of a Git repository to the clipboard
-nnoremap <leader>v :.GBrowse!<CR>
-xnoremap <leader>v :'<'>GBrowse!<CR>

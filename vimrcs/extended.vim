@@ -36,7 +36,7 @@ colorscheme peaksea
 " => Fast editing and reloading of vimrc configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>e :e! ~/.vim_runtime/my_configs.vim<cr>
-autocmd! bufwritepost ~/.vim_runtime/my_configs.vim source ~/.vim_runtime/my_configs.vim
+autocmd! BufWritePost ~/.vim_runtime/my_configs.vim source ~/.vim_runtime/my_configs.vim
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -53,23 +53,6 @@ endtry
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Command mode related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Smart mappings on the command line
-cno $h e ~/
-cno $d e ~/Desktop/
-cno $j e ./
-cno $c e <C-\>eCurrentFileDir("e")<cr>
-
-" $q is super useful when browsing on the command line
-" it deletes everything until the last slash 
-cno $q <C-\>eDeleteTillSlash()<cr>
-
-" Bash like keys for the command line
-cnoremap <C-A>		<Home>
-cnoremap <C-E>		<End>
-cnoremap <C-K>		<C-U>
-
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
 
 " Map ½ to something useful
 map ½ $
@@ -120,9 +103,6 @@ endif
 " When you press gv you Ack after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
-" Open Ack and put the cursor in the right position
-map <leader>g :Ack 
-
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
@@ -137,11 +117,6 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 " To go to the previous search results do:
 "   <leader>p
 "
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
 " Make sure that enter is never overriden in the quickfix window
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
@@ -173,58 +148,3 @@ func! CurrentFileDir(cmd)
     return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
-"=================================================================================
-"
-"   Following file contains the commands on how to run the currently open code.
-"   The default mapping is set to F5 like most code editors.
-"   Change it as you feel comfortable with, keeping in mind that it does not
-"   clash with any other keymapping.
-"
-"   NOTE: Compilers for different systems may differ. For example, in the case
-"   of C and C++, we have assumed it to be gcc and g++ respectively, but it may
-"   not be the same. It is suggested to check first if the compilers are installed
-"   before running the code, or maybe even switch to a different compiler.
-"
-"   NOTE: Adding support for more programming languages
-"
-"   Just add another elseif block before the 'endif' statement in the same
-"   way it is done in each case. Take care to add tabbed spaces after each
-"   elseif block (similar to python). For example:
-"
-"   elseif &filetype == '<your_file_extension>'
-"       exec '!<your_compiler> %'
-"
-"   NOTE: The '%' sign indicates the name of the currently open file with extension.
-"         The time command displays the time taken for execution. Remove the
-"         time command if you dont want the system to display the time
-"
-"=================================================================================
-
-map <F5> :call CompileRun()<CR>
-imap <F5> <Esc>:call CompileRun()<CR>
-vmap <F5> <Esc>:call CompileRun()<CR>
-
-func! CompileRun()
-exec "w"
-if &filetype == 'c'
-    exec "!gcc % -o %<"
-    exec "!time ./%<"
-elseif &filetype == 'cpp'
-    exec "!g++ % -o %<"
-    exec "!time ./%<"
-elseif &filetype == 'java'
-    exec "!javac %"
-    exec "!time java %"
-elseif &filetype == 'sh'
-    exec "!time bash %"
-elseif &filetype == 'python'
-    exec "!time python3 %"
-elseif &filetype == 'html'
-    exec "!google-chrome % &"
-elseif &filetype == 'go'
-    exec "!go build %<"
-    exec "!time go run %"
-elseif &filetype == 'matlab'
-    exec "!time octave %"
-endif
-endfunc
