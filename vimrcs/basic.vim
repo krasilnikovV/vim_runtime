@@ -52,6 +52,15 @@ nmap <leader>w :w!<cr>
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
+" Enable relative lines
+set relativenumber
+
+" Setup carrete symbols
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" Enable shared clipboardxx:w
+set clipboard=unnamed
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -212,9 +221,6 @@ map <C-space> ?
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
@@ -271,19 +277,11 @@ endif
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using <leader>
-map <leader>sn ]?
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
